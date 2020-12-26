@@ -12,7 +12,7 @@ function App() {
 
 
   
-  async function getcurrencyList(){
+  async function getcurrencyList(){//Uses public API to get a list of all currencies that will be used
     try{
       let apiCall= await fetch("https://api.exchangeratesapi.io/latest?");
       let apiJSON=await apiCall.json();
@@ -23,7 +23,7 @@ function App() {
 
 
 
-  async function convert(){
+  async function convert(){//Does conversion calculations and updates toCurrency accordingly
     let exchangeRate;
     try{
     let url=`https://api.exchangeratesapi.io/latest?symbols=${toCurrency}&base=${fromCurrency}`;
