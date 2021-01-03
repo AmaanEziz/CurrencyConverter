@@ -3,16 +3,9 @@ import './App.css'
 import CurrencyRow from './CurrencyRow.js'
 
 function App() {
-
-  const [currencyList,setcurrencyList]=useState([""]);
-  const [fromCurrency,setfromCurrency]=useState("EUR");
-  const [toCurrency,settoCurrency]=useState("USD");
-  const [fromAmount,setfromAmount]=useState("1");
-  const [toAmount,settoAmount]=useState();
-
-
   
-  async function getcurrencyList(){//Uses public API to get a list of all currencies that will be used
+  
+   async function getcurrencyList(){//Uses public API to get a list of all currencies that will be used
     try{
       let apiCall= await fetch("https://api.exchangeratesapi.io/latest?");
       let apiJSON=await apiCall.json();
@@ -20,7 +13,15 @@ function App() {
     return currencies;}
     catch(error){console.log(error)}
   }
+  
 
+  const [currencyList,setcurrencyList]=useState(()=>{
+    getcurrencyList.then(data=>{return data});
+  });
+  const [fromCurrency,setfromCurrency]=useState("EUR");
+  const [toCurrency,settoCurrency]=useState("USD");
+  const [fromAmount,setfromAmount]=useState("1");
+  const [toAmount,settoAmount]=useState();
 
 
   async function convert(){//Does conversion calculations and updates toCurrency accordingly
